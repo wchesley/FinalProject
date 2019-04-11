@@ -105,7 +105,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.invertase.rnfirebasestarter"
+        applicationId "com.cidm.finalproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -142,6 +142,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-gesture-handler')
+    implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
@@ -213,5 +215,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply plugin: 'com.google.gms.google-services'
+
 GoogleServicesPlugin.config.disableVersionCheck = true
+apply plugin: 'com.google.gms.google-services'
