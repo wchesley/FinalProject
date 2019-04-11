@@ -6,7 +6,7 @@ import {
   View, TouchableOpacity
 } from 'react-native';
 
-import { createStackNavigator } from  'react-navigation';
+import { createStackNavigator} from  'react-navigation';
 import HomeScreen from "../components/NavBar";
 import Schedule from "../components/schedule";
 import About from "../components/about";

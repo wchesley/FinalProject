@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet, Image } from 'react-native'
 import { ListItem, Button, Icon, Card } from 'react-native-elements'
-import {ScrollView} from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 import babb from './img/babb.png'
-import { connect }  from 'react-redux'
+import { connect } from 'react-redux'
 import { watchScheduleData } from '../redux/app-redux'
 
 const users = [
@@ -15,31 +15,24 @@ const users = [
 ]
 
 const mapStateToProps = (state) => {
-  return { 
-    //scheduleData: state.scheduleData
+  return {
+    scheduleData: state.scheduleData
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { };
+  return {
+    watchScheduleData: () => dispatch(watchScheduleData())
+  };
 }
-const Schedule = (...props) => {
-  return (
-    <View>
+class Schedule extends React.Component {
+  render() {
+    return (
       <View>
-        <Card containerStyle={{ padding: 0 }} title="Schedule" >
-          {
-            
-                <ListItem
-                  title={"Test"}
-                 leftAvatar={require('./img/babb.png')}
-                />
-            })
-          }
-        </Card>
+        <Text>{this.props.scheduleData.EventTitle}</Text>
       </View>
-    </View>
-  )
+    );
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
