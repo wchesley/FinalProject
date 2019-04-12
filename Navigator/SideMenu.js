@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './SideMenu.styles';
 import { NavigationActions } from 'react-navigation';
-import { ScrollView, Text, View } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
+//import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 class SideMenu extends Component {
     navigateToScreen = (route) => () => {
@@ -19,22 +19,22 @@ class SideMenu extends Component {
                 <ScrollView>
                     <View>
                         <Text style={styles.sectionHeadingStyle}>
-                           Main Menu
-            </Text>
+                            Main Menu
+                        </Text>
                         <View style={styles.navSectionStyle}>
                             <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
                                 Home
-              </Text>
+                            </Text>
                         </View>
                     </View>
                     <View>
                         <View style={styles.navSectionStyle}>
                             <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Schedule')}>
                                 Schedule
-              </Text>
+                        </Text>
                             <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Map')}>
                                 Map
-              </Text>
+                        </Text>
                         </View>
                     </View>
                     <View>

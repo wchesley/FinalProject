@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Dimensions } from "react-native";
-import { createStackNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
-import Schedule from '../components/schedule'
+import { createAppContainer, createDrawerNavigator } from "react-navigation";
 import SideMenu from './SideMenu'
 import stackNav from './stackNav'
 

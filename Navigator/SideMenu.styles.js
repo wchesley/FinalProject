@@ -8,8 +8,7 @@ export default {
     },
     navItemStyle: {
       padding: 10,
-      backgroundColor: 'grey',
-      textColor: 'white',
+      backgroundColor: 'lightgrey',
       marginBottom: 30
    
     },

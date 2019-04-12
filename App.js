@@ -12,14 +12,14 @@ import NavBar from './components/NavBar';
 import AppContainer from './Navigator/navigator'
 import { Provider } from 'react-redux'
 import { store } from './redux/app-redux'
+import stackNav from './Navigator/stackNav';
 //import Location from './components/location'
 
+//const AppContainer = createAppContainer(stackNav);
 const App = () => {
   return (
     <Provider store={store}>
-      <>
         <AppContainer />
-      </>
     </Provider>
   )
 }
