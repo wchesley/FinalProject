@@ -12,10 +12,10 @@ const DEFAULT_scheduleData = [
   {
     name: 'Babb',
     avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    EventDesc: "Babbs latest and greatest lecture on React Native, you won't wanna miss this!",
+    EventDesc: "LBabbs latest and greatest lecture on React Native, you won't wanna miss this!",
     EventTime: 400,
-    EventTitle: "Babb's Speech",
-    EventTopic: "React Native - in depth"
+    EventTitle: "LBabb's Speech",
+    EventType: "LKeynote"
   },
 
 ]
@@ -53,7 +53,7 @@ class Schedule extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     const scheduleData = [];
     querySnapshot.forEach((doc) => {
-      const { EventTime, EventTitle, EventTopic, EventDesc } = doc.data();
+      const { EventTime, EventTitle, EventType, EventDesc } = doc.data();
 
       scheduleData.push({
         key: doc.id,
@@ -61,7 +61,7 @@ class Schedule extends React.Component {
         EventDesc,
         EventTime,
         EventTitle,
-        EventTopic,
+        EventType,
       });
     });
     this.setState({
