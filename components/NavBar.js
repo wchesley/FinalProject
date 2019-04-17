@@ -26,26 +26,28 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <>
-      <Card
-        title='Home'
-        image={require('./img/babb.png')}>
-        <Text style={{ marginBottom: 10 }}>
-          Welcome to Edsigcon 2019!
+        <Card
+          title='Home'
+          image={require('./img/babb.png')}>
+          <Text style={{ marginBottom: 10 }}>
+            Welcome to Edsigcon 2019!
     </Text>
-        {
-          list.map((u, i) => {
-            return (
-              <ListItem
-                key={i}
-                leftAvatar={u.avatar}
-                title={u.name}
-                onPress={() => this.props.navigation.navigate(u.link)}
-              />
-            );
-          })
-        }
-      </Card>
-      <MapBox/>
+          {
+            list.map((u, i) => {
+              return (
+                <ListItem
+                  key={i}
+                  leftAvatar={u.avatar}
+                  title={u.name}
+                  onPress={() => this.props.navigation.navigate(u.link)}
+                />
+              );
+            })
+          }
+        </Card>
+        <View>
+          <MapBox />
+        </View>
       </>
     );;
   }

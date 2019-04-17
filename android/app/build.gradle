@@ -112,7 +112,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        manifestPlaceholders = [GOOGLE_MAPS_API:"AIzaSyCcCVYR_W3zow9BiJff42S51S1_jEPhJQY"]
+        manifestPlaceholders = [GOOGLE_MAPS_API:ext.apiToken]
     }
     splits {
         abi {
