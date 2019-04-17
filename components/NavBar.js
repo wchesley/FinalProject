@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
 import { ListItem, Button, Icon, Card } from 'react-native-elements'
-import BackButton from './backButton'
+import MapBox from './map'
 
 const list = [
   {
@@ -25,6 +25,7 @@ const list = [
 class HomeScreen extends React.Component {
   render() {
     return (
+      <>
       <Card
         title='Home'
         image={require('./img/babb.png')}>
@@ -44,6 +45,8 @@ class HomeScreen extends React.Component {
           })
         }
       </Card>
+      <MapBox/>
+      </>
     );;
   }
 
