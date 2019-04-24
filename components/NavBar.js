@@ -46,10 +46,10 @@ class HomeScreen extends React.Component {
           }
         </Card>
         <View>
-          <MapBox />
+        
         </View>
       </>
-    );;
+    );
   }
 
 }

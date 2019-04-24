@@ -79,6 +79,7 @@ class Sponsors extends React.Component {
       )
     }
     return (
+      <>
       <View>
         <FlatList
           data={this.state.sponsorsData}
@@ -101,7 +102,7 @@ class Sponsors extends React.Component {
         </View>
 
     </View>
-  
+      </>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 export default class Location extends Component {
     state = {
@@ -9,7 +10,7 @@ export default class Location extends Component {
         long: 0,
     }
     watchID: ?number = null;
-    componentDidMount = () => {
+    componentWillMount = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const lat = position.coords.latitude;
@@ -27,6 +28,14 @@ export default class Location extends Component {
     }
     componentWillUnmount = () => {
         navigator.geolocation.clearWatch(this.watchID);
+    }
+    setMapRegion = () => {
+        region = {
+            latitude: this.state.lat,
+            longitude: this.state.long,
+            latitudeDelta: 1,
+            longitudeDelta: 1,
+        }
     }
     render() {
         return (
@@ -46,6 +55,14 @@ export default class Location extends Component {
                 <Text>
                     {this.state.lastPosition}
                 </Text>
+                <View style={styles.container}>
+                    <MapView
+                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                        style={styles.map}
+                        region={this.setMapRegion()}
+                    >
+                    </MapView>
+                </View>
             </View>
         )
     }
@@ -60,5 +77,15 @@ const styles = StyleSheet.create({
     boldText: {
         fontSize: 30,
         color: 'red',
-    }
-})
+    },
+    MapContainer: {
+        ...StyleSheet.absoluteFillObject,
+        height: 400,
+        width: 400,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject,
+    },
+});

@@ -10,7 +10,7 @@ export default class ScheduleComponent extends React.PureComponent {
                 <ListItem
                     title={this.props.EventTitle}
                     subtitle={this.props.EventDesc} 
-                    onPress={() => this.props.navigation.navigate()}/>
+                    onPress={() => this.props.navigation.navigate('SpeakerBio',{})}/>
             </>
         )
     }
