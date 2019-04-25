@@ -28,7 +28,7 @@ class HomeScreen extends React.Component {
       <>
         <Card
           title='Home'
-          image={require('./img/babb.png')}>
+          image={require('./img/EdsigconBanner.png')}>
           <Text style={{ marginBottom: 10 }}>
             Welcome to Edsigcon 2019!
     </Text>

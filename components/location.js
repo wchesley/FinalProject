@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapBox from './map'
 
-export default class Location extends Component {
-    state = {
-        initialPosition: 'unknown',
-        lastPosition: 'unknown',
-        lat: 0,
-        long: 0,
+class Location extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            lat: 35,
+            long: -101,
+            error: null,
+        };
     }
+
     watchID: ?number = null;
-    componentWillMount = () => {
+    componentDidMount = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const lat = position.coords.latitude;
-                const long = position.coords.longitude;
-                const initialPosition = JSON.stringify(position);
-                this.setState({ initialPosition, long, lat });
+                this.setState({
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude,
+                    initialPosition: JSON.stringify(position),
+                    //this.setState({ initialPosition, long, lat });
+                });
             },
             (error) => alert(error.message),
             { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
@@ -33,40 +40,40 @@ export default class Location extends Component {
         region = {
             latitude: this.state.lat,
             longitude: this.state.long,
-            latitudeDelta: 1,
-            longitudeDelta: 1,
+            latitudeDelta: 0.09,
+            longitudeDelta: 0.09,
         }
     }
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.boldText}>
-                    Initial position:
-            </Text>
-
-                <Text>
-                    {this.state.initialPosition}
-                </Text>
-
-                <Text style={styles.boldText}>
-                    Current position:
-            </Text>
-
-                <Text>
-                    {this.state.lastPosition}
-                </Text>
-                <View style={styles.container}>
+            <>
+                <View style={styles.MapContainer}>
                     <MapView
                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                         style={styles.map}
-                        region={this.setMapRegion()}
+                        showUserLocation={true}
+                        loadingEnabled={true}
+                        region={{
+                            latitude: this.state.lat,
+                            longitude: this.state.long,
+                            latitudeDelta: 0.7,
+                            longitudeDelta: 0.7,
+                        }}
                     >
                     </MapView>
                 </View>
-            </View>
-        )
+                <View>
+                    <Text>
+                        You are: {this.state.lat}
+                    </Text>
+                </View>
+            </>
+        );
     }
 }
+
+export default Location;
 
 const styles = StyleSheet.create({
     container: {
