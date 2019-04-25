@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
 import { ListItem, Button, Icon, Card } from 'react-native-elements'
-import MapBox from './map'
 
 const list = [
   {
@@ -37,7 +36,7 @@ class HomeScreen extends React.Component {
               return (
                 <ListItem
                   key={i}
-                  leftAvatar={u.avatar}
+                  Avatar={u.avatar}
                   title={u.name}
                   onPress={() => this.props.navigation.navigate(u.link)}
                 />

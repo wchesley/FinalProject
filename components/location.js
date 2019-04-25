@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
-import MapBox from './map'
 
 class Location extends Component {
     constructor(props) {
@@ -36,14 +35,6 @@ class Location extends Component {
     componentWillUnmount = () => {
         navigator.geolocation.clearWatch(this.watchID);
     }
-    setMapRegion = () => {
-        region = {
-            latitude: this.state.lat,
-            longitude: this.state.long,
-            latitudeDelta: 0.09,
-            longitudeDelta: 0.09,
-        }
-    }
 
     render() {
         return (
@@ -57,8 +48,8 @@ class Location extends Component {
                         region={{
                             latitude: this.state.lat,
                             longitude: this.state.long,
-                            latitudeDelta: 0.7,
-                            longitudeDelta: 0.7,
+                            latitudeDelta: 0.5,
+                            longitudeDelta: 0.5,
                         }}
                     >
                     </MapView>
