@@ -53,7 +53,7 @@ class Schedule extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     const scheduleData = [];
     querySnapshot.forEach((doc) => {
-      const { EventTime, EventTitle, EventType, EventDesc } = doc.data();
+      const { EventTime, EventTitle, EventType, EventDesc, SpeakerBio, EventDay } = doc.data();
 
       scheduleData.push({
         key: doc.id,
@@ -62,6 +62,8 @@ class Schedule extends React.Component {
         EventTime,
         EventTitle,
         EventType,
+        SpeakerBio,
+        EventDay,
       });
     });
     this.setState({
