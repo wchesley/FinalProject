@@ -36,7 +36,7 @@ class HomeScreen extends React.Component {
               return (
                 <ListItem
                   key={i}
-                  Avatar={u.avatar}
+                  leftAvatar={{source: {uri: u.avatar} }}
                   title={u.name}
                   onPress={() => this.props.navigation.navigate(u.link)}
                 />

@@ -14,7 +14,7 @@ export default {
     },
     navSectionStyle: {
       backgroundColor: 'lightgrey',
-      textColor: 'white'
+      Color: 'white'
     },
     sectionHeadingStyle: {
       paddingVertical: 10,

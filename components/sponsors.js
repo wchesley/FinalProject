@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
 class Sponsors extends React.Component {
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('Sponsors');
+    this.ref = firebase.firestore().collection('Sponsors','Speakers');
     this.unsubscribe = null;
     this.state = {
       loading: true,
