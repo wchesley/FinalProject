@@ -67,14 +67,40 @@ class Schedule extends React.Component {
         SpeakerBio,
         EventDay,
       });
+      this.arrayholder.push({
+        EventTitle,
+        EventType
+      })
     });
     this.setState({
       scheduleData,
       loading: false,
     })
+   
   }
-  updateSearch = search => {
-    this.setState({ search });
+  updateSearch = text  => {
+      this.setState({
+        search: text,
+      })   
+      const newData = this.arrayholder.filter(item => {      
+        const itemData = `${item.EventTitle.toUpperCase()} ${item.EventType.toUpperCase()}`;
+         const textData = text.toUpperCase();
+          
+         return itemData.indexOf(textData) > -1;    
+      });    
+      this.setState({ scheduleData: newData });  
+    };
+  
+  renderSearch = () => {
+    return(
+      <SearchBar
+          placeholder="Type here... "
+          round
+          autoCorrect={false}
+          onChangeText={text => this.updateSearch(text)}
+          value={this.state.search}
+        />
+    );
   };
 
   render() {
@@ -85,14 +111,10 @@ class Schedule extends React.Component {
     }
     return (
       <View>
-        <SearchBar
-          placeholder="Type here... "
-          onChangeText={this.updateSearch}
-          value={this.state.search}
-        />
         <FlatList
           data={this.state.scheduleData}
           renderItem={({ item }) => <ScheduleComponent {...item} navigation={this.props.navigation} />}
+          ListHeaderComponent={this.renderSearch}
         />
       </View>
     );
