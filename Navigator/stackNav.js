@@ -14,6 +14,7 @@ import sponsors from "../components/sponsors";
 import Location from '../components/location'
 import SpeakerBio from '../components/SpeakerBio'
 import { Icon } from 'react-native-elements';
+import ScheduleComponent from '../components/scheduleComponent';
 
 const stackNav = createStackNavigator({
   Home: {
@@ -33,6 +34,12 @@ const stackNav = createStackNavigator({
       title: "Schedule",
     })
   },
+  ScheduleComponent: {
+    screen: ScheduleComponent,
+    navigationOptions: ({ navigation }) => ({
+      title: "Schedule",
+    })
+    },
   Sponsors: {
     screen: sponsors,
     navigationOptions: ({ navigation }) => ({

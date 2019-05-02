@@ -6,7 +6,7 @@ import babb from './img/babb.png'
 import { connect } from 'react-redux'
 import { watchScheduleData } from '../redux/app-redux'
 import firebase from 'react-native-firebase'
-
+import { withNavigation } from 'react-navigation'
 
 
 const mapStateToProps = (state) => {
@@ -25,9 +25,9 @@ class SpeakerBio extends React.Component {
 
     constructor() {
         super();
-        const navigation = this.props; 
-        const speakerCollection = navigation.getParam(BioRef, 'Speakers');
-        this.ref = firebase.firestore().collection(speakerCollection);
+        //const { navigation } = this.props; 
+        //const speakerCollection = navigation.getParam(BioRef, 'Speakers/AmjatAbudllat');
+        this.ref = firebase.firestore().collection('Speakers');
         this.unsubscribe = null;
         this.state = {
             loading: true,
@@ -83,4 +83,4 @@ class SpeakerBio extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SpeakerBio);
+export default withNavigation(SpeakerBio);

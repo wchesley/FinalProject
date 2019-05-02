@@ -82,7 +82,7 @@ class Schedule extends React.Component {
       <View>
         <FlatList
           data={this.state.scheduleData}
-          renderItem={({ item }) => <ScheduleComponent {...item} />}
+          renderItem={({ item }) => <ScheduleComponent {...item} navigation={this.props.navigation} />}
         />
       </View>
     );

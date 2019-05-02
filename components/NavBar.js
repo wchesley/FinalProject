@@ -11,7 +11,7 @@ const list = [
   {
     name: 'Sponsors',
     avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
-    link: 'sponsors',
+    link: 'Sponsors',
   },
   {
     name: 'About',
