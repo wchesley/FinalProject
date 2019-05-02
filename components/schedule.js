@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet, Image, FlatList } from 'react-native'
-import { ListItem, Button, Icon, Card } from 'react-native-elements'
+import { SearchBar } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler'
 import babb from './img/babb.png'
 import { connect } from 'react-redux'
@@ -40,7 +40,9 @@ class Schedule extends React.Component {
     this.state = {
       loading: true,
       scheduleData: [],
+      search: '',
     }
+    this.arrayholder = [];
   }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
@@ -71,6 +73,9 @@ class Schedule extends React.Component {
       loading: false,
     })
   }
+  updateSearch = search => {
+    this.setState({ search });
+  };
 
   render() {
     if (this.state.loading) {
@@ -80,6 +85,11 @@ class Schedule extends React.Component {
     }
     return (
       <View>
+        <SearchBar
+          placeholder="Type here... "
+          onChangeText={this.updateSearch}
+          value={this.state.search}
+        />
         <FlatList
           data={this.state.scheduleData}
           renderItem={({ item }) => <ScheduleComponent {...item} navigation={this.props.navigation} />}
