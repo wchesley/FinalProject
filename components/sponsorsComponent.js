@@ -8,8 +8,8 @@ export default class SponsorsComponent extends React.PureComponent {
         return (
             <>
                 <ListItem
-                    title={this.props.Name}
-                    subtitle={this.props.Bio} 
+                    title={this.props.name}
+                    subtitle={this.props.bio} 
                     onPress={() => this.props.navigation.navigate()}/>
             </>
         )

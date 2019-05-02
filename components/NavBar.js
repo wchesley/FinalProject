@@ -18,6 +18,11 @@ const list = [
     avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg',
     link: 'About',
   },
+  {
+    name: 'Speakers',
+    avatar: '',
+    link: 'SpeakerBio'
+  }
 
 ]
 

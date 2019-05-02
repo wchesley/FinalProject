@@ -13,6 +13,7 @@ import babb from './img/babb.png'
 import { connect } from 'react-redux'
 import { watchSponsorsData } from '../redux/app-redux'
 import firebase from 'react-native-firebase'
+import { SocialIcon } from 'react-native-elements'
 import SponsorsComponent from './sponsorsComponent';
 
 const DEFAULT_sponsorsData = [
@@ -57,13 +58,14 @@ class Sponsors extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     const sponsorsData = [];
     querySnapshot.forEach((doc) => {
-      const { EventTime, EventTitle, EventType, EventDesc } = doc.data();
+      const { bio, name, university } = doc.data();
 
       sponsorsData.push({
         key: doc.id,
         doc,
-        Bio,
-        Name
+        bio,
+        name, 
+        university
       });
     });
     this.setState({
