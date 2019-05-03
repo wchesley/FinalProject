@@ -68,6 +68,7 @@ class Speaker extends React.Component {
       <SearchBar
           placeholder="Type here... "
           round
+          lightTheme={true}
           autoCorrect={false}
           onChangeText={text => this.updateSearch(text)}
           value={this.state.search}
