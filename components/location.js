@@ -1,3 +1,4 @@
+// Adapted from: https://medium.com/quick-code/react-native-location-tracking-14ab2c9e2db8
 import React from "react";
 import {
   StyleSheet,
