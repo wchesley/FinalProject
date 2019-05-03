@@ -1,4 +1,5 @@
 // Adapted from: https://medium.com/quick-code/react-native-location-tracking-14ab2c9e2db8
+// ref this too: https://medium.freecodecamp.org/how-to-integrate-maps-in-react-native-using-react-native-maps-5745490fe055
 import React from "react";
 import {
   StyleSheet,
