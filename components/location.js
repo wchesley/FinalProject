@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
 class Location extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            lat: 35,
-            long: -101,
+            lat: 41.505493,
+            long: -81.681290,
             error: null,
+            lastPosition: [], 
         };
     }
 
@@ -52,6 +53,12 @@ class Location extends Component {
                             longitudeDelta: 0.05,
                         }}
                     >
+                    <Marker
+                    ref={marker => {
+                        this.marker = marker; 
+                    }}
+                    coordinate={this.state.lastPosition}
+                    />
                     </MapView>
                 </View>
                 <View>
