@@ -48,8 +48,8 @@ class Location extends Component {
                         region={{
                             latitude: this.state.lat,
                             longitude: this.state.long,
-                            latitudeDelta: 0.5,
-                            longitudeDelta: 0.5,
+                            latitudeDelta: 0.05,
+                            longitudeDelta: 0.05,
                         }}
                     >
                     </MapView>

@@ -86,7 +86,7 @@ class Speaker extends React.Component {
       <View>
         <FlatList
           data={this.state.speakerData}
-          renderItem={({ item }) => <SpeakerComponent {...item} />}
+          renderItem={({ item }) => <SpeakerComponent {...item} navigation={this.props.navigation }/>}
           ListHeaderComponent={this.renderSearch}
         />
       </View>

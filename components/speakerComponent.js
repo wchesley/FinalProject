@@ -9,6 +9,7 @@ export default class SpeakerComponent extends React.PureComponent {
                 <ListItem
                     title={this.props.Name}
                     subtitle={this.props.Description}
+                    badge={{value: this.props.Uni}}
                     leftIcon={<Icon name={'account-circle'}/>}
                     onPress={()  => this.props.navigation.navigate('SpeakerBio')}
                 />
