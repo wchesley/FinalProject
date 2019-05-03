@@ -1,96 +1,153 @@
-import React, { Component } from 'react'
-import { View, Text, Switch, StyleSheet } from 'react-native'
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  PermissionsAndroid
+} from "react-native";
+import MapView, {
+  Marker,
+  AnimatedRegion,
+  Polyline,
+  PROVIDER_GOOGLE
+} from "react-native-maps";
 
-class Location extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            lat: 41.505493,
-            long: -81.681290,
-            error: null,
-            lastPosition: [], 
+// const LATITUDE = 29.95539;
+// const LONGITUDE = 78.07513;
+const LATITUDE_DELTA = 0.009;
+const LONGITUDE_DELTA = 0.009;
+const LATITUDE = 41.505493;
+const LONGITUDE = -81.681290;
+
+class MapsPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      routeCoordinates: [],
+      distanceTravelled: 0,
+      prevLatLng: {},
+      coordinate: new AnimatedRegion({
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: 0,
+        longitudeDelta: 0
+      })
+    };
+  }
+
+  componentDidMount() {
+    const { coordinate } = this.state;
+
+    this.watchID = navigator.geolocation.watchPosition(
+      position => {
+        const { routeCoordinates, distanceTravelled } = this.state;
+        const { latitude, longitude } = position.coords;
+
+        const newCoordinate = {
+          latitude,
+          longitude
         };
-    }
+        console.log({ newCoordinate });
 
-    watchID: ?number = null;
-    componentDidMount = () => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.setState({
-                    lat: position.coords.latitude,
-                    long: position.coords.longitude,
-                    initialPosition: JSON.stringify(position),
-                    //this.setState({ initialPosition, long, lat });
-                });
-            },
-            (error) => alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
-        this.watchID = navigator.geolocation.watchPosition((position) => {
-            const lastPosition = JSON.stringify(position);
-            this.setState({ lastPosition });
+        if (Platform.OS === "android") {
+          if (this.marker) {
+            this.marker._component.animateMarkerToCoordinate(
+              newCoordinate,
+              500
+            );
+          }
+        } else {
+          coordinate.timing(newCoordinate).start();
+        }
+
+        this.setState({
+          latitude,
+          longitude,
+          routeCoordinates: routeCoordinates.concat([newCoordinate]),
+          prevLatLng: newCoordinate
         });
-    }
-    componentWillUnmount = () => {
-        navigator.geolocation.clearWatch(this.watchID);
-    }
+      },
+      error => console.log(error),
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000,
+        distanceFilter: 10
+      }
+    );
+  }
 
-    render() {
-        return (
-            <>
-                <View style={styles.MapContainer}>
-                    <MapView
-                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                        style={styles.map}
-                        showUserLocation={true}
-                        loadingEnabled={true}
-                        region={{
-                            latitude: this.state.lat,
-                            longitude: this.state.long,
-                            latitudeDelta: 0.05,
-                            longitudeDelta: 0.05,
-                        }}
-                    >
-                    <Marker
-                    ref={marker => {
-                        this.marker = marker; 
-                    }}
-                    coordinate={this.state.lastPosition}
-                    />
-                    </MapView>
-                </View>
-                <View>
-                    <Text>
-                        You are: {this.state.lat}
-                    </Text>
-                </View>
-            </>
-        );
-    }
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  getMapRegion = () => ({
+    latitude: this.state.latitude,
+    longitude: this.state.longitude,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA
+  });
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          showUserLocation
+          followUserLocation
+          loadingEnabled
+          region={this.getMapRegion()}
+        >
+          <Marker.Animated
+            ref={marker => {
+              this.marker = marker;
+            }}
+            coordinate={this.state.coordinate}
+          />
+        </MapView>
+      </View>
+    );
+  }
 }
 
-export default Location;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 50
-    },
-    boldText: {
-        fontSize: 30,
-        color: 'red',
-    },
-    MapContainer: {
-        ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-    },
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
+  },
+  bubble: {
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,0.7)",
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
+  },
+  latlng: {
+    width: 200,
+    alignItems: "stretch"
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: "center",
+    marginHorizontal: 10
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
+    backgroundColor: "transparent"
+  }
 });
+
+export default MapsPage;
