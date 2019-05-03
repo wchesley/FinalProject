@@ -1,3 +1,7 @@
+/*
+  Firebase ref: https://invertase.io/blog/getting-started-with-cloud-firestore-on-react-native
+  Search bar: https://medium.freecodecamp.org/how-to-build-a-react-native-flatlist-with-realtime-searching-ability-81ad100f6699
+*/
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet, Image, FlatList } from 'react-native'
 import { SearchBar } from 'react-native-elements'
