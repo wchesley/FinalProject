@@ -14,17 +14,6 @@ import { withNavigation } from 'react-navigation'
     1. Navigation without props: https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html
     2. Read individual doc from firebase; 
 */
-const mapStateToProps = (state) => {
-    return {
-        speakerData: state.speakerData
-    };
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        watchScheduleData: () => dispatch(watchScheduleData())
-    };
-}
 
 class SpeakerBio extends React.Component {
 

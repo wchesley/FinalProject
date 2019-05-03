@@ -1,115 +1,74 @@
-
-
-
-
-
-
-
 import React, { Component } from 'react'
-import { View, Text, Switch, StyleSheet, Image, FlatList } from 'react-native'
-import { ListItem, Button, Icon, Card } from 'react-native-elements'
-import { ScrollView } from 'react-native-gesture-handler'
-import babb from './img/babb.png'
-import { connect } from 'react-redux'
-import { watchSponsorsData } from '../redux/app-redux'
+import { View, Text, Switch, StyleSheet, Image, FlatList, Linking } from 'react-native'
+import { Tile } from 'react-native-elements'
 import firebase from 'react-native-firebase'
 import { SocialIcon } from 'react-native-elements'
-import SponsorsComponent from './sponsorsComponent';
 
-const DEFAULT_sponsorsData = [
+
+const list =
   {
-    name: 'Babb',
-    bio: 'Professor, Batman'
+    ISCAP_bio: 'ISCAP is a non-profit corporation governed by a board of directors who in partnership with EDSIG help organize and manage two conferences, EDSIGCON and CONISAR, and three journals, JISE, ISEDJ and JISAR.',
+    ISCAP_uri: 'http://www.iscap.info/#about',
+    EDSIG_bio: "EDSIG's board of directors is responsible for the scholarly vision and content of EDSIGCON, CONISAR, ISEDJ and JISAR",
+    EDSIG_uri: 'http://www.aitp-edsig.org/',
+    //icon: './img/logo-edsig.png',
+     
+  }
   
-  },
-
-]
-
-const mapStateToProps = (state) => {
-  return {
-    sponsorsData: state.sponsorsData
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    watchsponsorsData: () => dispatch(watchSponsorsData())
-  };
-}
-
 class Sponsors extends React.Component {
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('Sponsors','Speakers');
-    this.unsubscribe = null;
+    //this.ref = firebase.firestore().collection('Sponsors','Speakers');
+    //this.unsubscribe = null;
     this.state = {
-      loading: true,
-      sponsorsData: [],
+      // loading: true,
+      // sponsorsData: [],
     }
   }
-  componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  onCollectionUpdate = (querySnapshot) => {
-    const sponsorsData = [];
-    querySnapshot.forEach((doc) => {
-      const { bio, name, university } = doc.data();
-
-      sponsorsData.push({
-        key: doc.id,
-        doc,
-        bio,
-        name, 
-        university
+  /*
+  handleClick = url => {
+    Linking.canOpenURL(url).then(supported => {
+        if (supported) {
+          Linking.openURL(url);
+        } else {
+          console.log("Don't know how to open URI: " + url);
+        }
       });
-    });
-    this.setState({
-      sponsorsData,
-      loading: false,
-    })
-  }
+    };
+  */
 
   render() {
-    if (this.state.loading) {
-      return (
-        <Text>Loading...</Text>
-      )
-    }
     return (
       <>
-      <View>
-        <FlatList
-          data={this.state.sponsorsData}
-          renderItem={({ item }) => <SponsorsComponent {...item} />}
-        />
-      </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Sponsors</Text>
 
-      <View  style={{flexDirection:"row"}}>
-      <SocialIcon 
-        type='facebook'
-        />
-        <SocialIcon 
-        type='twitter'
-        />
-        <SocialIcon
-        type='linkedin'
-        />
-        </View>
+        <Tile
+          imageSrc={require('./img/logo-iscap.png')}
+          title={'Information Systems & Computing Academic Professionals, Inc.'}
+          //onPress={this.handleClick(list.ISCAP_uri)}
+        >
+          <View>
+            <Text>{list.ISCAP_bio}
+</Text>
+          </View>
+        </Tile>
+        <Tile
+          imageSrc={require('./img/logo-edsig.png')}
+          title={'Education Special Interest Group of AITP'}
+          //onPress={this.handleClick(list.EDSIG_uri)}
+        >
+          <View>
+            <Text>{list.EDSIG_bio}
+</Text>
+          </View>
+        </Tile>
+        
 
-    </View>
       </>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sponsors);
+export default (Sponsors);
 
 
 

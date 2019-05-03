@@ -7,8 +7,12 @@ const list = [
   {
     name: 'Schedule',
     icon: 'view-list',
-    IconType: 'material',
     link: 'Schedule',
+  },
+  {
+    name: 'Speakers',
+    icon: 'account-circle',
+    link: 'Speakers'
   },
   {
     name: 'Sponsors',
@@ -20,11 +24,7 @@ const list = [
     icon: 'announcement',
     link: 'About',
   },
-  {
-    name: 'Speakers',
-    icon: 'account-circle',
-    link: 'SpeakerBio'
-  }
+  
 
 ]
 
