@@ -21,8 +21,8 @@ class SpeakerBio extends React.Component {
         super();
         //page won't render with these enabled: ref TODO #1 Returns: TypeError: Undefined is not an object (evaluating '_this.props.navigation')
         //const { navigation } = this.props; 
-        //const speakerCollection = navigation.getParam(BioRef, 'Speakers/AmjatAbudllat');
-        this.ref = firebase.firestore().collection('Speakers');
+            //const speakerCollection = navigation.getParam(BioRef, 'AmjatAbdullat');
+        this.ref = firebase.firestore().collection('Speakers').doc('AmjatAbdullat');
         this.unsubscribe = null;
         this.state = {
             loading: true,
@@ -68,11 +68,11 @@ class SpeakerBio extends React.Component {
             <View>
                 <Tile
                 imageSrc={require('./img/babb.png')}
-                title="Jeff Babb"
+                title={this.state.Name}
                 contentContainerStyle={{height:120}}
                 >
                     <Text style={{ marginBottom: 10 }}>
-                    Dr. Babb has extensive experience in mentoring and coaching students in software design competitions, including coaching two winning teams in the national championship for Microsoft’s Imagine Cup Software Design Invitational.
+                    {this.state.Description}
                     </Text>
                 </Tile>
             </View>
