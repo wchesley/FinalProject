@@ -8,22 +8,16 @@ import { watchScheduleData } from '../redux/app-redux'
 import firebase from 'react-native-firebase'
 import { withNavigation } from 'react-navigation'
 
-
-
-
 /* 
     TODO: 
-    1. Navigation without props: https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html
-    2. Read individual doc from firebase; 
+    1. Set picture to string path in firebase
+    2. Styling 
 */
 
 class SpeakerBio extends React.Component {
-   
+
     constructor() {
         super();
-        //page won't render with these enabled: ref TODO #1 Returns: TypeError: Undefined is not an object (evaluating '_this.props.navigation')
-       
-        
         this.unsubscribe = null;
         this.state = {
             loading: true,
@@ -34,60 +28,26 @@ class SpeakerBio extends React.Component {
             Picture: 'init val',
         }
     }
-    
+
     componentDidMount() {
-        const { navigation } = this.props; 
+        const { navigation } = this.props;
         const Description = navigation.getParam('Description').toString();
         const Name = navigation.getParam('Name').toString();
         const Uni = navigation.getParam('Uni').toString();
         const Picture = navigation.getParam('Picture').toString();
 
-        //const ref = firebase.firestore().collection('Speakers').doc(speakerRef);
-        //ref.get().then((doc) => {
-        //    const speakerData = [];
-        //    if (doc.exists) {
-        //        const { Description, Name, Picture, Uni } = doc.data();
-        //        speakerData.push({
-        //            key: doc.id,
-        //            doc,
-        //            Description,
-        //            Name,
-        //            Picture,
-        //            Uni,
-        //        });
-                this.setState({
-                    Description: Description,
-                    Name: Name,
-                    Uni: Uni,
-                    Picture: Picture,
-                    loading: false,
-                })
-            }
-        //})
-    //}
 
-    componentWillUnmount() {
-       // this.unsubscribe();
+        this.setState({
+            Description: Description,
+            Name: Name,
+            Uni: Uni,
+            Picture: Picture,
+            loading: false,
+        })
     }
 
-    onCollectionUpdate = (DocumentSnapshot) => {
-        const speakerData = [];
-        DocumentSnapshot = doc => {
-            const { Description, Name, Picture, Uni } = doc.data();
-            speakerData.push({
-                key: doc.id,
-                doc,
-                Description,
-                Name,
-                Picture,
-                Uni,
-            });
-        };
-        this.setState({
-            speakerData,
-            loading: false,
-            testData: speakerData.Description,
-        })
+    componentWillUnmount() {
+        
     }
 
     render() {
@@ -96,7 +56,6 @@ class SpeakerBio extends React.Component {
                 <Text>Loading...</Text>
             )
         }
-
         return (
             <View>
 
