@@ -19,27 +19,51 @@ const event = [
     }
 
 ]
-export default class EventsPage extends React.PureComponent {
+
+export default class EventsPage extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            loading: true,
+            EventTime: 'init val',
+            EventDesc: 'init val',
+            EventTitle: 'init val',
+            EventType: 'init val',
+            EventDay: 'init val',
+            SpeakerBio: 'init val',
+        }
+    }
+    componentDidMount = () => {
+        const { navigation } = this.props
+        const EventTime = navigation.getParam('EventTime');
+        const EventDesc = navigation.getParam('EventDesc');
+        const EventDay = navigation.getParam('EventDay');
+        const EventTitle = navigation.getParam('EventTitle');
+        const EventType = navigation.getParam('EventType');
+        const SpeakerBio = navigation.getParam('SpeakerBio');
+        this.setState({
+            EventTime: EventTime,
+            EventDesc: EventDesc,
+            EventTitle: EventTitle,
+            EventType: EventType,
+            EventDay: EventDay,
+            SpeakerBio: SpeakerBio,
+            loading: false,
+        })
+    }
     render() {
+        if (this.state.loading) {
+            return (
+                <Text>Loading...</Text>
+            )
+        }
         return (
             <>
                 <Card
-                    title="Event Title"
+                    title={this.state.EventTitle}
                 >
-                    <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
-                    {
-                        event.map((u, i) => {
-                            return (
-                                <ListItem
-                                    key={i}
-                                    leftIcon={<Icon name={u.Icon} />}
-                                    title={u.Title}
-                                    subtitle={u.Detail}
-                                    onPress={() => this.props.navigation.navigate('SpeakerBio')}
-                                />
-                            );
-                        })
-                    }
+                    <Text>{this.state.EventDesc}</Text>
+                    <Text>{this.state.EventTime}</Text>
                 </Card>
             </>
         )
