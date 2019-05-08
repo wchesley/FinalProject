@@ -19,8 +19,9 @@ import MapView, {
 // const LONGITUDE = 78.07513;
 const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
-const LATITUDE = 41.505493;
-const LONGITUDE = -81.681290;
+//default local to hotel address: 4 Public Square, Cleveland, OH, 44113
+const LATITUDE = 41.499920;
+const LONGITUDE = -81.694970;
 
 class MapsPage extends React.Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class MapsPage extends React.Component {
         longitude: LONGITUDE,
         latitudeDelta: 0,
         longitudeDelta: 0
-      })
+      }), 
+      atLocation: false,
     };
   }
 
@@ -86,6 +88,20 @@ class MapsPage extends React.Component {
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);
   }
+  //ref law of cosines to get distance from event location
+  lawOfCosines = (latitude, longitude, LATITUDE, LONGITUDE) => {
+    const earthRadius = 6371e3
+    var latitude = latitude.toRadians()
+    var longitude = longitude.toRadians()
+    var LATITUDE = LATITUDE.toRadians()
+    var LONGITUDE = LONGITUDE.toRadians()
+    var distance = Math.acos( Math.sin(LATITUDE) * Math.sin(latitude) + Math.cos(LATITUDE) * Math.cos(latitude) * Math.cos(LONGITUDE - longitude) * earthRadius);
+    if (distance >= 50) {
+      this.setState({
+        atLocation: true
+      })
+    }
+  } 
 
   getMapRegion = () => ({
     latitude: this.state.latitude,

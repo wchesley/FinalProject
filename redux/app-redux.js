@@ -6,6 +6,7 @@ import * as firebase from 'react-native-firebase';
 //init app state: 
 const initialState = {
     scheduleData: {},
+    speakerData: {},
 }
 
 /*
