@@ -18,7 +18,6 @@ class SpeakerBio extends React.Component {
 
     constructor() {
         super();
-        this.unsubscribe = null;
         this.state = {
             loading: true,
             testData: "onething",
