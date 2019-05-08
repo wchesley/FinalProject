@@ -9,6 +9,8 @@ import firebase from 'react-native-firebase'
 import { withNavigation } from 'react-navigation'
 
 
+
+
 /* 
     TODO: 
     1. Navigation without props: https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html
@@ -16,33 +18,62 @@ import { withNavigation } from 'react-navigation'
 */
 
 class SpeakerBio extends React.Component {
-
+   
     constructor() {
         super();
         //page won't render with these enabled: ref TODO #1 Returns: TypeError: Undefined is not an object (evaluating '_this.props.navigation')
-        //const { navigation } = this.props; 
-            //const speakerCollection = navigation.getParam(BioRef, 'AmjatAbdullat');
-        this.ref = firebase.firestore().collection('Speakers').doc('AmjatAbdullat');
+       
+        
         this.unsubscribe = null;
         this.state = {
             loading: true,
-            speakerData: [],
+            testData: "onething",
+            Description: 'init val',
+            Name: 'init val',
+            Uni: 'init val',
+            Picture: 'init val',
         }
     }
-
+    
     componentDidMount() {
-        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate)
-    }
+        const { navigation } = this.props; 
+        const Description = navigation.getParam('Description').toString();
+        const Name = navigation.getParam('Name').toString();
+        const Uni = navigation.getParam('Uni').toString();
+        const Picture = navigation.getParam('Picture').toString();
+
+        //const ref = firebase.firestore().collection('Speakers').doc(speakerRef);
+        //ref.get().then((doc) => {
+        //    const speakerData = [];
+        //    if (doc.exists) {
+        //        const { Description, Name, Picture, Uni } = doc.data();
+        //        speakerData.push({
+        //            key: doc.id,
+        //            doc,
+        //            Description,
+        //            Name,
+        //            Picture,
+        //            Uni,
+        //        });
+                this.setState({
+                    Description: Description,
+                    Name: Name,
+                    Uni: Uni,
+                    Picture: Picture,
+                    loading: false,
+                })
+            }
+        //})
+    //}
 
     componentWillUnmount() {
-        this.unsubscribe();
+       // this.unsubscribe();
     }
 
-    onCollectionUpdate = (querySnapshot) => {
+    onCollectionUpdate = (DocumentSnapshot) => {
         const speakerData = [];
-        querySnapshot.forEach((doc) => {
+        DocumentSnapshot = doc => {
             const { Description, Name, Picture, Uni } = doc.data();
-
             speakerData.push({
                 key: doc.id,
                 doc,
@@ -51,10 +82,11 @@ class SpeakerBio extends React.Component {
                 Picture,
                 Uni,
             });
-        });
+        };
         this.setState({
             speakerData,
             loading: false,
+            testData: speakerData.Description,
         })
     }
 
@@ -64,17 +96,17 @@ class SpeakerBio extends React.Component {
                 <Text>Loading...</Text>
             )
         }
+
         return (
             <View>
-                <Tile
-                imageSrc={require('./img/babb.png')}
-                title={this.state.Name}
-                contentContainerStyle={{height:120}}
-                >
-                    <Text style={{ marginBottom: 10 }}>
+
+                <Text style={{ marginBottom: 10 }}>
                     {this.state.Description}
-                    </Text>
-                </Tile>
+                </Text>
+                <Text>{this.state.Name}</Text>
+                <Text>{this.state.Picture}</Text>
+                <Text>{this.state.Uni}</Text>
+
             </View>
         );
     }

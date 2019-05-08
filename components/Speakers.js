@@ -30,14 +30,15 @@ class Speaker extends React.Component {
   onCollectionUpdate = (querySnapshot) => {
     const speakerData = [];
     querySnapshot.forEach((doc) => {
-      const { Description, Name, Uni } = doc.data();
+      const { Description, Name, Uni, Picture } = doc.data();
 
       speakerData.push({
         key: doc.id,
         doc,
         Description, 
         Name, 
-        Uni, 
+        Uni,
+        Picture, 
       });
       this.arrayholder.push({
         Name,

@@ -42,6 +42,12 @@ const stackNav = createStackNavigator({
       title: "Speakers",
     })
   },
+  SpeakerBio: {
+    screen: SpeakerBio,
+    navigationOptions: ({ navigation}) => ({
+      title:"Speaker"
+    })
+  },
   ScheduleComponent: {
     screen: ScheduleComponent,
     navigationOptions: ({ navigation }) => ({
@@ -72,12 +78,6 @@ const stackNav = createStackNavigator({
       title: "Event Details"
     })
   },
-  SpeakerBio: {
-    screen: SpeakerBio,
-    navigationOptions: ({ navigation}) => ({
-      title:"Speaker"
-    })
-  }
 },
 {
   initialRouteName: 'Home',
